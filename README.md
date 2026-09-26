@@ -248,7 +248,7 @@ Example:
 
 ```text
 Frontend:
-http://localhost:3001
+http://localhost:3000
 
 Backend:
 http://localhost:8080
