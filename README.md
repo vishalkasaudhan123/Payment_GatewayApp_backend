@@ -362,19 +362,9 @@ git commit -m "Update payment gateway backend"
 git pull origin main
 git push origin main
 ```
-
 ---
-
 ## 👨‍💻 Author
 
 **Vishal Kasaudhan**
 
 Java / Spring Boot Developer
-
-GitHub:
-
-```text
-https://github.com/vishalkasaudhan123
-```
-
-
