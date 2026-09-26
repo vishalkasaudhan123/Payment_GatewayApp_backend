@@ -377,8 +377,4 @@ GitHub:
 https://github.com/vishalkasaudhan123
 ```
 
----
 
-## 📄 License
-
-This project is created for learning, development, and demonstration purposes.
