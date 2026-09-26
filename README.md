@@ -1,430 +1,384 @@
-**💳 Payment Gateway Application**
+# Payment Gateway Backend
 
-A full-stack Payment Gateway Application built using React.js and Spring Boot. The application supports multiple payment methods including UPI, Credit Card, Debit Card, and Net Banking, with separate handling for successful and failed transactions.
+A Spring Boot based Payment Gateway Backend application that provides a REST API for processing payments through multiple payment methods such as **UPI, Credit Card, Debit Card, and Net Banking**.
 
-🚀 Features
-💰 UPI Payment
-💳 Credit Card Payment
-💳 Debit Card Payment
-🏦 Net Banking Payment
-✅ Payment amount and payment-detail validation
-🔄 Unique transaction ID generation
-🔐 Card number masking
-💾 Successful transaction persistence
-❌ Failed transaction persistence
-🔗 REST API integration
-🧪 Unit Testing using JUnit 5 and Mockito
-🔬 Integration Testing using Spring Boot Test and MockMvc
-🗄️ MySQL database integration
+The application is designed using a service-based architecture where the payment method is selected dynamically based on the request.
 
+---
 
+## 🚀 Technologies Used
 
-**🛠️ Technologies Used**
+* Java 21
+* Spring Boot 4.1.1
+* Spring Web
+* Spring Security
+* Spring Data JPA
+* MySQL
+* Maven
+* H2 Database
+* REST API
+* Git & GitHub
 
-**Backend**
-Java 21
-Spring Boot
-Spring Web
-Spring Data JPA
-Hibernate
-MySQL
-Maven
-JUnit 5
-Mockito
-AssertJ
+---
 
+## 📁 Project Structure
 
-**Frontend**
-React.js
-JavaScript
-Axios
-HTML
-CSS
+```text
+paymentGateway
+│
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com.interface_example.paymentGateway
+│   │   │       ├── config
+│   │   │       ├── controller
+│   │   │       ├── entity
+│   │   │       ├── repository
+│   │   │       ├── request
+│   │   │       └── service
+│   │   │
+│   │   └── resources
+│   │       └── application.properties
+│   │
+│   └── test
+│
+├── pom.xml
+├── .gitignore
+└── README.md
+```
 
-**🏗️ Application Architecture**
-                    React.js Frontend
-                           │
-                           │ REST API
-                           ▼
-                  Payment Controller
-                           │
-                           ▼
-             Payment Transaction Service
-                           │
-             ┌─────────────┼─────────────┐
-             │             │             │
-             ▼             ▼             ▼
-            UPI         Card          Net Banking
-                        Payment
-             │             │             │
-             └─────────────┼─────────────┘
-                           │
-                           ▼
-                    Spring Data JPA
-                           │
-                           ▼
-                    MySQL Database
+---
 
-                    
-**💳 Supported Payment Methods**
+## ⚙️ Requirements
 
-**1. UPI**
+Before running the project, make sure you have:
 
-The application validates the payment amount and UPI ID before processing the transaction.
+* JDK 21 or higher
+* Maven
+* MySQL
+* STS / Eclipse / IntelliJ IDEA
+* Git
 
-{
-  "amount": 1000,
-  "method": "upi",
-  "upi": "test@upi"
-}
+Check Java:
 
-**2. Credit Card**
+```bash
+java -version
+```
 
-The application validates the card number and CVV. The card number is masked before being stored/displayed.
+Check Maven:
 
-{
-  "amount": 1000,
-  "method": "credit",
-  "card": "1234567890121234",
-  "cvv": "123"
-}
+```bash
+mvn -version
+```
 
-**3. Debit Card**
-{
-  "amount": 1000,
-  "method": "debit",
-  "card": "1234567890121234",
-  "cvv": "123"
-}
+---
 
-**4. Net Banking**
-{
-  "amount": 1000,
-  "method": "netbanking",
-  "bank": "HDFC Bank"
-}
+## 🔧 Configuration
 
-**🔄 Payment Processing Flow**
-User
- │
- ▼
-React.js Application
- │
- ▼
-POST /api/payments
- │
- ▼
-PaymentController
- │
- ▼
-PaymentTransactionService
- │
- ▼
-Select Payment Method
- │
- ├── UPI
- ├── Credit Card
- ├── Debit Card
- └── Net Banking
- │
- ▼
-Payment Validation
- │
- ├── Valid
- │     │
- │     ▼
- │   Successful Payment
- │     │
- │     ▼
- │   Success Transaction
- │     │
- │     ▼
- │   MySQL
- │
- └── Invalid
-       │
-       ▼
-     Failed Payment
-       │
-       ▼
-     Failed Transaction
-       │
-       ▼
-     MySQL
+Configure your database details in:
 
-     
-**📁 Backend Project Structure**
-src
-└── main
-    ├── java
-    │   └── com.interface_example.interfaceExample
-    │       │
-    │       ├── controller
-    │       │   └── PaymentController.java
-    │       │
-    │       ├── dto
-    │       │   └── PaymentRequest.java
-    │       │
-    │       ├── entity
-    │       │   ├── SuccessPaymentTransaction.java
-    │       │   └── FailedPaymentTransaction.java
-    │       │
-    │       ├── repository
-    │       │   ├── SuccessPaymentTransactionRepository.java
-    │       │   └── FailedPaymentTransactionRepository.java
-    │       │
-    │       ├── service
-    │       │   ├── PaymentService.java
-    │       │   ├── PaymentTransactionService.java
-    │       │   ├── UPIPaymentService.java
-    │       │   ├── CreditCardPaymentService.java
-    │       │   ├── DebitCardPaymentService.java
-    │       │   └── NetBankingPaymentService.java
-    │       │
-    │       └── util
-    │           └── TransactionIdGenerator.java
-    │
-    └── resources
-        └── application.properties
-
-        
-**🧪 Testing**
-
-The application includes both Unit Testing and Integration Testing.
-
-**Unit Testing**
-
-Unit tests are implemented using:
-
-JUnit 5
-Mockito
-AssertJ
-
-Unit tests focus on individual payment gateway services.
-
-UPIPaymentServiceTest
-        │
-        ▼
-UPIPaymentService
-        │
-        ├── Mock TransactionIdGenerator
-        ├── Mock Success Repository
-        └── Mock Failed Repository
-
-The tests cover scenarios such as:
-
-Successful UPI payment
-Invalid payment amount
-Missing UPI ID
-Blank UPI ID
-Null payment request
-Successful transaction persistence
-Failed transaction persistence
-
-Similar unit tests can be created for:
-
-CreditCardPaymentService
-DebitCardPaymentService
-NetBankingPaymentService
-
-**🔬 Integration Testing**
-
-Integration tests verify the complete Spring Boot application flow.
-
-MockMvc
-   │
-   ▼
-PaymentController
-   │
-   ▼
-PaymentTransactionService
-   │
-   ▼
-Payment Gateway Service
-   │
-   ├── UPI
-   ├── Credit Card
-   ├── Debit Card
-   └── Net Banking
-   │
-   ▼
-Repository
-   │
-   ▼
-MySQL Database
-
-Integration tests verify:
-
-REST API request and response
-Successful payment processing
-Failed payment processing
-Transaction ID generation
-Successful transaction persistence
-Failed transaction persistence
-Transaction retrieval
-
-
-**🔐 Card Masking**
-
-For card payments, the complete card number is masked before being displayed in the transaction message.
+```text
+src/main/resources/application.properties
+```
 
 Example:
-Original Card:
-1234567890121234
 
-Masked Card:
-**** **** **** 1234
-
-
-**🔗 API**
-
-**Process Payment**
-POST /api/payments
-
-**Example UPI Request**
-
-{
-  "amount": 1000,
-  "method": "upi",
-  "upi": "test@upi"
-}
-
-**Example Successful Response**
-{
-  "success": true,
-  "transactionId": "TXN-123456789ABC",
-  "message": "UPI payment of ₹1000 to test@upi successful"
-}
-
-
-
-**🗄️ Database**
-
-The application uses MySQL for transaction persistence.
-
-Successful and failed transactions are maintained separately:
-
-SuccessPaymentTransaction
-        │
-        ▼
-Successful Payments
-
-
-FailedPaymentTransaction
-        │
-        ▼
-Failed Payments
-
-
-
-**⚙️ Configuration**
-
-Configure the MySQL database in:
-
-src/main/resources/application.properties
-
-**Example:**
-
-spring.datasource.url=jdbc:mysql://localhost:3306/payment_db
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/payment_gateway
 spring.datasource.username=root
-spring.datasource.password=your_password
+spring.datasource.password=YOUR_PASSWORD
 
 spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
 
 server.port=8080
+```
 
-Update the database name, username, and password according to your local environment.
+Replace `YOUR_PASSWORD` with your local MySQL password.
 
-**▶️ How to Run**
+> Do not commit real database passwords, API keys, or other secrets to GitHub.
 
-**1. Clone the Backend Repository**
-git clone <your-backend-repository-url>
+---
 
-Navigate to the project:
+## ▶️ How to Run
 
-cd payment-gateway-backend
+### Using STS
 
-**2. Configure MySQL**
+1. Open the project in STS.
+2. Right-click the project.
+3. Select:
 
-Create the database:
+```text
+Run As → Spring Boot App
+```
 
-CREATE DATABASE payment_db;
+The application will start on:
 
-Then update your application.properties with your MySQL credentials.
-
-**3. Run the Spring Boot Application**
-
-Using Maven:
-
-mvn spring-boot:run
-
-Or using Maven Wrapper on Windows:
-
-mvnw.cmd spring-boot:run
-
-On Linux/Mac:
-
-./mvnw spring-boot:run
-
-The backend will run on:
-
+```text
 http://localhost:8080
+```
 
-  
-**🧪 Run Tests**
+### Using Maven
 
-Run all unit and integration tests using Maven:
+Run:
 
+```bash
+mvn clean
+```
+
+Then:
+
+```bash
+mvn spring-boot:run
+```
+
+---
+
+## 🔐 Security
+
+Spring Security is configured for the application.
+
+The security configuration is located at:
+
+```text
+config/SecurityConfig.java
+```
+
+The configuration controls access to the application's REST endpoints and handles security-related settings such as CORS.
+
+---
+
+## 💳 Payment API
+
+### Process Payment
+
+**Endpoint:**
+
+```http
+POST /api/payments
+```
+
+**Base URL:**
+
+```text
+http://localhost:8080
+```
+
+### Example Request
+
+```json
+{
+    "amount": 1500,
+    "paymentMethod": "UPI"
+}
+```
+
+Depending on the implementation of the request model, additional payment information may be required.
+
+### Example Payment Methods
+
+```text
+UPI
+CREDIT_CARD
+DEBIT_CARD
+NET_BANKING
+```
+
+---
+
+## 🔄 Payment Processing Flow
+
+```text
+Client
+   |
+   v
+Payment REST API
+   |
+   v
+Payment Controller
+   |
+   v
+Payment Service
+   |
+   +----> UPI Payment Service
+   |
+   +----> Credit Card Payment Service
+   |
+   +----> Debit Card Payment Service
+   |
+   +----> Net Banking Payment Service
+   |
+   v
+Payment Response
+```
+
+The application selects the appropriate payment service based on the payment method provided by the client.
+
+---
+
+## 🧩 Payment Services
+
+The backend contains separate services for different payment methods.
+
+### UPI Payment
+
+Handles payments made through UPI.
+
+### Credit Card Payment
+
+Handles credit card payment processing.
+
+### Debit Card Payment
+
+Handles debit card payment processing.
+
+### Net Banking Payment
+
+Handles net banking payment processing.
+
+---
+
+## 🌐 CORS
+
+CORS is configured in the backend to allow requests from the frontend application.
+
+This is useful when the React frontend and Spring Boot backend are running on different ports.
+
+Example:
+
+```text
+Frontend:
+http://localhost:3001
+
+Backend:
+http://localhost:8080
+```
+
+---
+
+## 🧪 Testing
+
+The project includes Spring Boot testing dependencies.
+
+Run tests using:
+
+```bash
 mvn test
+```
 
-To clean and run tests:
+---
 
-mvn clean test
+## 🛠️ Build the Application
 
-To build the project:
+Create the executable JAR:
 
-mvn clean install
+```bash
+mvn clean package
+```
 
+The generated JAR will be available inside:
 
-**🌐 Frontend Setup**
+```text
+target/
+```
 
-Clone the frontend repository:
+Run the JAR using:
 
-git clone <your-frontend-repository-url>
+```bash
+java -jar target/paymentGateway-0.0.1-SNAPSHOT.jar
+```
 
-Navigate to the React project:
+---
 
-cd payment-gateway-frontend
+## 📌 API Testing
 
-Install dependencies:
+You can test the REST APIs using:
 
-npm install
+* Postman
+* Insomnia
+* Thunder Client
+* Frontend application
 
-Start the React application:
+Example:
 
-npm start
+```http
+POST http://localhost:8080/api/payments
+Content-Type: application/json
+```
 
-Make sure the Spring Boot backend is running before making payment requests from the frontend.
+Request:
 
-**📌 Project Highlights**
-Developed a full-stack payment gateway using React.js and Spring Boot.
-Supports UPI, Credit Card, Debit Card, and Net Banking.
-Implemented a common PaymentService interface for different payment methods.
-Maintained business logic inside the Service layer.
-Controller is responsible for handling HTTP requests and responses.
-Implemented separate persistence for successful and failed transactions.
-Added reusable transaction ID generation using TransactionIdGenerator.
-Implemented card number masking for card transactions.
-Integrated Spring Boot REST APIs with the React.js frontend.
-Used Spring Data JPA and MySQL for transaction persistence.
-Implemented JUnit 5 and Mockito unit tests.
-Implemented Spring Boot MockMvc integration tests.
-Built and managed the backend using Maven and pom.xml.
-Developed using Java 21.
+```json
+{
+    "amount": 1500,
+    "paymentMethod": "UPI"
+}
+```
 
+---
 
-**👨‍💻 Author**
+## 📦 Maven Commands
+
+Clean the project:
+
+```bash
+mvn clean
+```
+
+Compile:
+
+```bash
+mvn compile
+```
+
+Run tests:
+
+```bash
+mvn test
+```
+
+Package the application:
+
+```bash
+mvn package
+```
+
+Run the application:
+
+```bash
+mvn spring-boot:run
+```
+
+---
+
+## 🔄 Git Commands
+
+To update the GitHub repository:
+
+```bash
+git status
+git add .
+git commit -m "Update payment gateway backend"
+git pull origin main
+git push origin main
+```
+
+---
+
+## 👨‍💻 Author
 
 **Vishal Kasaudhan**
 
-Java Developer | Spring Boot | React.js | MySQL
+Java / Spring Boot Developer
+
+GitHub:
+
+```text
+https://github.com/vishalkasaudhan123
+```
+
+---
+
+## 📄 License
+
+This project is created for learning, development, and demonstration purposes.
